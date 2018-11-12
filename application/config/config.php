@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= "http://".$_SERVER['HTTP_HOST']."/himpuh/";
+$config['base_url']	= "http://".$_SERVER['HTTP_HOST']."/demoHimpuh/";
 // $config['base_url']	= 'http://192.168.1.141/himpuh/';
 
 /*

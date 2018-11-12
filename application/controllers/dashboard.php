@@ -5,14 +5,12 @@ class Dashboard extends CI_Controller{
 		$this->load->model('model_wiki');
         $this->load->model('model_rembes');
 		$this->load->library('form_validation');   
-		
     }
 	// function untuk mengubah flag aktif pada suatu record
 	function global_delete($table,$key,$value,$direct){
         $this->model_dop->delete_update_rec($table,$key,$value);
 		$direct_ = str_replace("_uri_","/",$direct);
         redirect($direct_);
-		
 	}
 	// function untuk menampilkan halaman login
 	function index(){
@@ -425,11 +423,8 @@ class Dashboard extends CI_Controller{
 	}
 	// funtion untuk menampilkan data hasil scan barcode
 	function input_data($get=null){
-		if($get){
-			$id = $get;
-		}else{
-			$id = $this->input->post('qr_id');
-		}
+		$id = $get ? $get : $this->input->post('qr_id');
+		// debug($id);
 		if($id){
 			$company = $this->model_dop->get_table_where_array('m_company','qr_id',$id);
 			if($company){

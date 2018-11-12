@@ -17,3 +17,6 @@ application/logs/*
 /vendor/
 
 upload/*
+aplication/config/*
+aplication/chace/*
+aplication/core/*
