@@ -46,7 +46,7 @@
 						
 				?>
 						<th><?php echo $no;$no++;?></th>
-						<th> <a href="<?php echo site_url('dashboard/create_sess_event/').'/'.$row->id; ?>"><?php echo $row->event_name; ?><a/></th>
+						<th> <a href="<?php echo site_url('dashboard/create_sess_event/').'/'.$row->id.'/'.$jenis; ?>"><?php echo $row->event_name; ?><a/></th>
 						<th> <?php echo $row->event_date; ?></th>
 						<th> <?php echo $row->event_date_end; ?></th>
 						<th> <?php echo $row->event_start; ?></th>
@@ -75,7 +75,7 @@
 						</th>
 						<?php } ?>
 						<th> 
-							<a href="<?php echo site_url('dashboard/create_sess_event').'/'.$row->id; ?>" type="button" class="btn btn-success btn-sm">
+							<a href="<?php echo site_url('dashboard/create_sess_event').'/'.$row->id.'/'.$jenis; ?>" type="button" class="btn btn-success btn-sm">
 								 <i class="fa fa-qrcode"></i>
 							</a>
 							<?php if($jenis == 1){?>

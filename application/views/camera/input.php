@@ -1,7 +1,4 @@
 
-<script type="text/javascript" src="<?php echo base_url('asset/dash/js/plugins/jquery.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('asset/dash/js/plugins/qrcode.js')?>"></script>
-
 <section id="contact" class="map">
 	<div class="container">
 			<h3>ABSENSI <?php 
@@ -79,7 +76,7 @@
 									array('kolom'=>'date(absen_masuk)','value'=>date('Y-m-d')),
 									array('kolom'=>'id_acara','value'=>$this->session->userdata('event')['id_event'])
 								);
-								$cek= $this->model_dop->global_model_array('t_absen',false,$where,false,false,false,false,false,false);
+								$cek= $this->Model_dop->global_model_array('t_absen',false,$where,false,false,false,false,false,false);
 								// debug($cek);
 								if(empty($cek)){
 									$warna1 = 'danger';
@@ -149,116 +146,7 @@
 				</div>
 			</div>
 	</div><hr/>
-<script type="text/javascript">
-function disen(id){
-	var id = id;
-	$(document).ready(function() {
-		$.ajax ({
-			type: 'post',
-			url: "<?php echo base_url();?>ajax/update_flag_in",
-			dataType: "json",
-			data:"id="+id,
-			success:function(data){	
-				if(data.flag == 0){
-					document.getElementById(id).className = "btn btn-success btn-sm";
-					document.getElementById('icon'+id).className = "fa fa-download";
-				}else{
-					alert('Peserta Sudah Masuk');
-				}
-				if(data.status=="FAIL"){
-					alert('Gagal input data');	
-				}			
-			},
-			error: function(data){
-				alert('Error input data');	
-			}		
-		});
-	});
-}
-
-function musy1(id){
-	var id = id;
-	$(document).ready(function() {
-		$.ajax ({
-			type: 'post',
-			url: "<?php echo base_url();?>ajax/update_flag_in_musy1/1",
-			dataType: "json",
-			data:"id="+id,
-			success:function(data){	
-				if(data.flag == 0){
-					document.getElementById('1'+id).className = "btn btn-success btn-sm";
-					document.getElementById('icon1'+id).className = "fa fa-download";
-				}else if(data.flag == 2){
-					alert('Peserta Sudah Masuk');
-				}else{
-					alert('Peserta Belum Melakukan Registrasi');
-				}
-				if(data.status=="FAIL"){
-					alert('Gagal input data');	
-				}			
-			},
-			error: function(data){
-				alert('Error input data');	
-			}		
-		});
-	});
-}
-
-function musy2(id){
-	var id = id;
-	$(document).ready(function() {
-		$.ajax ({
-			type: 'post',
-			url: "<?php echo base_url();?>ajax/update_flag_in_musy1/2",
-			dataType: "json",
-			data:"id="+id,
-			success:function(data){	
-				if(data.flag == 0){
-					document.getElementById('2'+id).className = "btn btn-success btn-sm";
-					document.getElementById('icon2'+id).className = "fa fa-download";
-				}else if(data.flag == 2){
-					alert('Peserta Sudah Masuk');
-				}else{
-					alert('Peserta Belum Melakukan Registrasi');
-				}
-				if(data.status=="FAIL"){
-					alert('Gagal input data');	
-				}			
-			},
-			error: function(data){
-				alert('Error input data');	
-			}		
-		});
-	});
-}
-
-function out(id){
-	var id = id;
-	$(document).ready(function() {
-		$.ajax ({
-			type: 'post',
-			url: "<?php echo base_url();?>ajax/cekout/",
-			dataType: "json",
-			data:"id="+id,
-			success:function(data){	
-				if(data.flag == 0){
-					document.getElementById('ch'+id).className = "btn btn-success btn-sm";
-					document.getElementById('icon3'+id).className = "fa fa-download";
-				}else if(data.flag == 2){
-					alert('Peserta Sudah Check Out');
-				}else{
-					alert('Peserta Belum Melakukan Registrasi');
-				}
-				if(data.status=="FAIL"){
-					alert('Gagal input data');	
-				}			
-			},
-			error: function(data){
-				alert('Error input data');	
-			}		
-		});
-	});
-}
-
-</script>
 </body>
+
+<script type="text/javascript" src="<?php echo base_url('asset/dash/js/plugins/jquery.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('asset/dash/js/plugins/qrcode.js')?>"></script>

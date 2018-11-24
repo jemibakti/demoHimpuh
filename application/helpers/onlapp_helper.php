@@ -4,7 +4,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 if(!function_exists('onlapp')){
 	
 	function debug($array){
-		echo '<pre>',print_r($array,1),'</pre>'; exit;
+		echo '<pre>',print_r($array,1),'</pre>';
 	}
 	function word($word){
 		$new_word = ucwords(strtolower($word));

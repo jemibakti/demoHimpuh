@@ -95,7 +95,7 @@
 				<a href="#"><i class="fa fa-search"></i> Scan Qr<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li>
-						<a href="<?php echo site_url('dashboard/scan')?>">&nbsp;&nbsp;<i class="fa fa-th fa-fw"></i> By Camera</a>
+						<a href="<?php echo site_url('dashboard/event/3')?>">&nbsp;&nbsp;<i class="fa fa-th fa-fw"></i> By Camera</a>
 					</li>
 					<li>
 						<a href="<?php echo site_url('dashboard/event/2')?>">&nbsp;&nbsp;<i class="fa fa-th fa-fw"></i> By Scanner</a>

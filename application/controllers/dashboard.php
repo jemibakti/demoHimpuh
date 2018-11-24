@@ -2,13 +2,13 @@
 class Dashboard extends CI_Controller{
     function __construct(){
         parent::__construct();
-		$this->load->model('model_wiki');
+		$this->load->model('Model_wiki');
         $this->load->model('model_rembes');
 		$this->load->library('form_validation');   
     }
 	// function untuk mengubah flag aktif pada suatu record
 	function global_delete($table,$key,$value,$direct){
-        $this->model_dop->delete_update_rec($table,$key,$value);
+        $this->Model_dop->delete_update_rec($table,$key,$value);
 		$direct_ = str_replace("_uri_","/",$direct);
         redirect($direct_);
 	}
@@ -19,13 +19,13 @@ class Dashboard extends CI_Controller{
             'title'=>'Login',
 			'allert'=>$allert
         );
-        $this->load->view('wiki/index',$data);
+        $this->load->view('wiki/login',$data);
     }
 	// function untuk mengecek data login
 	function cek_login(){
 	   $username = $this->input->post('username');
 	   $password = MD5($this->input->post('password'));
-	   $result = $this->model_wiki->login($username,$password);
+	   $result = $this->Model_wiki->login($username,$password);
 		if($result){
 			$sess_array = array();
 			$sess_array = array(
@@ -41,7 +41,7 @@ class Dashboard extends CI_Controller{
 				'update_date'=>date('Y-m-d')
 			);
 
-			$this->model_dop->update_table('m_user',$update,'id',$result[0]['id']);
+			$this->Model_dop->update_table('m_user',$update,'id',$result[0]['id']);
 			redirect("dashboard/welcome_user");
 		}else{
 			redirect("dashboard/index/1");
@@ -57,7 +57,7 @@ class Dashboard extends CI_Controller{
 		'active_flag'=> '0',
 		'update_date'=>date('Y-m-d')
 		);
-		$this->model_dop->update_table('m_user',$update,'id',$session_data['id']);
+		$this->Model_dop->update_table('m_user',$update,'id',$session_data['id']);
 		
 		$sess_array = array(
 			 'user_name' => '',
@@ -78,7 +78,7 @@ class Dashboard extends CI_Controller{
 		
 			$data['user'] = $username;
 			$data['nama'] = $nama;
-			$data['perusahaan'] = $this->model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
+			$data['perusahaan'] = $this->Model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
 			$th = date('Y') - 3;
 			$tgl_exp = date('m-d');
 			
@@ -90,7 +90,7 @@ class Dashboard extends CI_Controller{
 			$order =array(
 				array('kolom'=>'company_name','value'=>'asc')
 			);
-			$data['ppiu'] = $this->model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
+			$data['ppiu'] = $this->Model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
 			
 			$where =array(
 				array('kolom'=>'tgl_sk <=','value'=>$th.$tgl_exp),
@@ -100,7 +100,7 @@ class Dashboard extends CI_Controller{
 			$order =array(
 				array('kolom'=>'tgl_sk','value'=>'asc')
 			);
-			$data['expired_sk'] = $this->model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
+			$data['expired_sk'] = $this->Model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
 			
 			$where =array(
 				array('kolom'=>'tgl_sk_umroh <=','value'=>$th.$tgl_exp),
@@ -110,7 +110,7 @@ class Dashboard extends CI_Controller{
 			$order =array(
 				array('kolom'=>'tgl_sk_umroh','value'=>'asc')
 			);
-			$data['expired_umrah'] = $this->model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
+			$data['expired_umrah'] = $this->Model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);
 			$where =array(
 				array('kolom'=>'company_anggaran','value'=>'0'),
 				array('kolom'=>'active_flag','value'=>'0')
@@ -120,11 +120,11 @@ class Dashboard extends CI_Controller{
 				array('kolom'=>'company_name','value'=>'asc')
 			);
 			//data provider visa
-			$data['iuran'] = $this->model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);$where =array(
+			$data['iuran'] = $this->Model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);$where =array(
 				array('kolom'=>'provider_visa','value'=>'1'),
 				array('kolom'=>'active_flag','value'=>'0')
 			);
-			$data['visa'] = $this->model_dop->global_model('m_company',false,$where,false,false,False,false,false,false);
+			$data['visa'] = $this->Model_dop->global_model('m_company',false,$where,false,false,False,false,false,false);
 			// -- 
 			// debug($data);
 			$this->load->view('element/v_header_style',$data);
@@ -206,7 +206,7 @@ class Dashboard extends CI_Controller{
 			);
 		}
 		$data['jenis'] = $jenis;
-		$data['data_grid'] = $this->model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);	
+		$data['data_grid'] = $this->Model_dop->global_model('m_company',false,$where,false,false,$order,false,false,false);	
 		$data['delete'] = 'dashboard/global_delete/m_company/id';
 		
 		$this->load->view('element/v_header_style',$data);
@@ -230,8 +230,8 @@ class Dashboard extends CI_Controller{
 			array('kolom'=>'a.pegawai_name','value'=>'asc')
 		);
 		
-		$data['data_grid'] = $this->model_dop->global_model('m_pegawai a','a.*,company_name,company_email',$where,$join,false,$order,false,false,false);
-		$data['company'] = $this->model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
+		$data['data_grid'] = $this->Model_dop->global_model('m_pegawai a','a.*,company_name,company_email',$where,$join,false,$order,false,false,false);
+		$data['company'] = $this->Model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
 		$data['delete'] = 'dashboard/global_delete/m_pegawai/id';
 		if($exp){
 			$data['filename'] = 'Data Peserta Mubes';
@@ -265,7 +265,7 @@ class Dashboard extends CI_Controller{
 			'update_by'=> $this->session->userdata('logged_in')['username']
 		);
 		// debug($data);
-		$this->model_dop->update_table('m_event',$data,'id',$this->input->post('id_file'));
+		$this->Model_dop->update_table('m_event',$data,'id',$this->input->post('id_file'));
 		redirect("dashboard/".$direct);
 	}
 	function input_pegawai(){
@@ -295,7 +295,7 @@ class Dashboard extends CI_Controller{
 			'pegawai_pic'=>$foto
 		);
 		
-		$this->model_dop->insert_table('m_pegawai',$data);
+		$this->Model_dop->insert_table('m_pegawai',$data);
 		redirect("dashboard/detail_company/".$this->input->post('id_company'));
 	}
 	// function untuk mengupdate record data pegawai
@@ -319,7 +319,7 @@ class Dashboard extends CI_Controller{
 			$data=array(
 				'pegawai_pic'=>$foto
 			);
-			$this->model_dop->update_table('m_pegawai',$data,'id',$this->input->post('id_peg'));
+			$this->Model_dop->update_table('m_pegawai',$data,'id',$this->input->post('id_peg'));
 			
 		}
 		// debug($this->input->post());
@@ -334,7 +334,7 @@ class Dashboard extends CI_Controller{
 			'update_by'=>$this->session->userdata('logged_in')['username']
 		);
 		// debug($data);
-		$this->model_dop->update_table('m_pegawai',$data,'id',$this->input->post('id_peg'));
+		$this->Model_dop->update_table('m_pegawai',$data,'id',$this->input->post('id_peg'));
 		redirect("dashboard/detail_company/".$this->input->post('id_company'));
 	}
 	// function untuk menginput record data perusahan
@@ -375,7 +375,7 @@ class Dashboard extends CI_Controller{
 			'create_by'=> $this->session->userdata('logged_in')['username'],
 			'qr_id'=>$qr_id
 		);
-		$this->model_dop->insert_table('M_COMPANY',$data);
+		$this->Model_dop->insert_table('M_COMPANY',$data);
 		
 		redirect("dashboard/data_perusahaan/4");
 	}
@@ -417,16 +417,15 @@ class Dashboard extends CI_Controller{
 			'company_anggaran'=>trim($this->input->post('company_anggaran')),
 			'company_contact'=>$this->input->post('company_contact')
 		);
-		$this->model_dop->update_table('M_COMPANY',$data,'id',$this->input->post('id_com'));
+		$this->Model_dop->update_table('M_COMPANY',$data,'id',$this->input->post('id_com'));
 		// debug($data);
 		redirect("dashboard/data_perusahaan/".$this->input->post('jenis').'/4');
 	}
 	// funtion untuk menampilkan data hasil scan barcode
 	function input_data($get=null){
 		$id = $get ? $get : $this->input->post('qr_id');
-		// debug($id);
 		if($id){
-			$company = $this->model_dop->get_table_where_array('m_company','qr_id',$id);
+			$company = $this->Model_dop->get_table_where_array('m_company','qr_id',$id);
 			if($company){
 				
 				$where =array(
@@ -438,7 +437,7 @@ class Dashboard extends CI_Controller{
 				$order =array(
 					array('kolom'=>'a.pegawai_name','value'=>'asc')
 				);
-				$pegawai = $this->model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
+				$pegawai = $this->Model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
 				
 				$data=array(
 					'id'=>$id,
@@ -465,7 +464,7 @@ class Dashboard extends CI_Controller{
 	}
 	// function untuk menampilkan / generate qr-code
 	function qr_view($id){
-		$company = $this->model_dop->get_table_where_array('m_company','id',$id);
+		$company = $this->Model_dop->get_table_where_array('m_company','id',$id);
 		$where =array(
 			array('kolom'=>'active_flag','value'=>'0'),
 			array('kolom'=>'id_company','value'=>$company['0']['id'])
@@ -474,7 +473,7 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'a.pegawai_name','value'=>'asc')
 		);
-		$pegawai = $this->model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
+		$pegawai = $this->Model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
 		
 		$data=array(
 			'id'=>$id,
@@ -493,7 +492,7 @@ class Dashboard extends CI_Controller{
 			array('kolom'=>'c.active_flag','value'=>'0')
 		);
 		if($id){
-			$data['event'] = $this->model_dop->get_table_where_array('m_event','id',$id);
+			$data['event'] = $this->Model_dop->get_table_where_array('m_event','id',$id);
 			$tambahan =array(
 				array('kolom'=>'a.id_acara','value'=>$id)
 			);
@@ -515,8 +514,8 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'a.absen_masuk','value'=>'desc'),
 		);
-		$data['data_grid'] = $this->model_dop->global_model('t_absen a',"a.*,b.pegawai_jabatan,b.pegawai_name,c.company_name",$where,$join,false,$order,false,false,false);
-		$data['perusahaan_datang'] = $this->model_dop->global_model('t_absen a',"c.company_name",$where,$join,false,$order,false,false,true);
+		$data['data_grid'] = $this->Model_dop->global_model('t_absen a',"a.*,b.pegawai_jabatan,b.pegawai_name,c.company_name",$where,$join,false,$order,false,false,false);
+		$data['perusahaan_datang'] = $this->Model_dop->global_model('t_absen a',"c.company_name",$where,$join,false,$order,false,false,true);
 		$data['display'] = $display;
 		// debug($data);
 		if($export){
@@ -531,7 +530,7 @@ class Dashboard extends CI_Controller{
 		}
 	}
 	function data_telat($id,$export=null){
-		$data['event'] = $this->model_dop->get_table_where_array('m_event','id',$id);
+		$data['event'] = $this->Model_dop->get_table_where_array('m_event','id',$id);
 		$where =array(
 			array('kolom'=>'b.active_flag','value'=>'0'),
 			array('kolom'=>'time(absen_masuk) >','value'=>$data['event'][0]['event_start']),
@@ -546,8 +545,8 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'a.absen_masuk','value'=>'desc'),
 		);
-		$data['data_grid'] = $this->model_dop->global_model('t_absen a',"a.*,b.pegawai_jabatan,b.pegawai_name,c.company_name",$where,$join,false,$order,false,false,false);
-		$data['perusahaan_datang'] = $this->model_dop->global_model('t_absen a',"c.company_name",$where,$join,false,$order,false,false,true);
+		$data['data_grid'] = $this->Model_dop->global_model('t_absen a',"a.*,b.pegawai_jabatan,b.pegawai_name,c.company_name",$where,$join,false,$order,false,false,false);
+		$data['perusahaan_datang'] = $this->Model_dop->global_model('t_absen a',"c.company_name",$where,$join,false,$order,false,false,true);
 		$data['id'] = $id;
 		$data['display'] = '';
 		// debug($data);
@@ -563,17 +562,42 @@ class Dashboard extends CI_Controller{
 		}
 	}
 	// function untuk memanggil halaman scan barcode by camera
-	function scan(){
+	function scan($id = null){
+		$data=array(
+			'id'=>null,
+			'comp'=>null,
+			'get_data'=>null
+		);
+		if($id){
+			$company = $this->Model_dop->get_table_where_array('m_company','qr_id',$id);
+			// debug($company);exit;
+			if($company){
+				$pegawai = $this->Model_wiki->dataAbsen($company[0]['id'],$this->session->userdata('event')['id_event']);
+				// debug($pegawai);exit;
+				$data=array(
+					'id'=>$id,
+					'comp'=>$company,
+					'get_data'=>$pegawai
+				);
+			}else{
+				echo "Tidak Terdaftar";
+			}
+		}
 	
-        $this->load->view('element/v_header_style');		
+        $this->load->view('element/v_header_style',$data);		
 		$this->load->view('camera/camera');
 	}
 	
 	// function untuk memanggil halaman scan barcode by camera
 	function scan_phone(){
+		$this->cekScanData();
+		$this->load->view('element/v_header_style',$data);		
+		$this->load->view('camera/input');
+	}
+	function cekScanData(){
 		$id = $this->input->post('qr_id');
 		if($id){
-			$company = $this->model_dop->get_table_where_array('m_company','qr_id',$id);
+			$company = $this->Model_dop->get_table_where_array('m_company','qr_id',$id);
 			if($company){
 				
 				$where =array(
@@ -584,7 +608,7 @@ class Dashboard extends CI_Controller{
 				$order =array(
 					array('kolom'=>'a.pegawai_name','value'=>'asc')
 				);
-				$pegawai = $this->model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
+				$pegawai = $this->Model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
 				
 				$data=array(
 					'id'=>$id,
@@ -603,8 +627,6 @@ class Dashboard extends CI_Controller{
 			$data['comp']='Tidak Terdaftar';
 		}
 		
-			$this->load->view('element/v_header_style',$data);		
-			$this->load->view('camera/input');
 	}
 	// function untuk menampilkan data detail perusahaan
 	function detail_company($id=null){
@@ -616,7 +638,7 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'a.pegawai_name','value'=>'asc')
 		);
-		$data['data_grid'] = $this->model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
+		$data['data_grid'] = $this->Model_dop->global_model('m_pegawai a',false,$where,false,false,$order,false,false,false);
 		
 		$where =array(
 			array('kolom'=>'active_flag','value'=>'0'),
@@ -625,7 +647,7 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'keterangan','value'=>'asc')
 		);
-		$data['berkas'] = $this->model_dop->global_model('t_berkas',false,$where,false,false,$order,false,false,false);
+		$data['berkas'] = $this->Model_dop->global_model('t_berkas',false,$where,false,false,$order,false,false,false);
 		
 		$where =array(
 			array('kolom'=>'a.active_flag','value'=>'0'),
@@ -635,9 +657,9 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'a.pegawai_name','value'=>'asc')
 		);
-		$data['peg'] = $this->model_dop->global_model_array('m_pegawai a',false,$where,false,false,$order,false,false,false);
+		$data['peg'] = $this->Model_dop->global_model_array('m_pegawai a',false,$where,false,false,$order,false,false,false);
 		// debug($data);
-		$data['perusahaan'] = $this->model_dop->get_table_where_array('m_company','id',$id);
+		$data['perusahaan'] = $this->Model_dop->get_table_where_array('m_company','id',$id);
 		$data['delete'] = 'dashboard/global_delete/m_pegawai/id';
 		$data['delete_berkas'] = 'dashboard/global_delete/t_berkas/id';
 		
@@ -662,7 +684,7 @@ class Dashboard extends CI_Controller{
 		$order =array(
 			array('kolom'=>'surat_reg','value'=>'desc')
 		);
-		$data['data_grid'] = $this->model_dop->global_model('m_surat',false,$where,false,false,$order,false,false,false);
+		$data['data_grid'] = $this->Model_dop->global_model('m_surat',false,$where,false,false,$order,false,false,false);
 		$where =array(
 			array('kolom'=>'active_flag','value'=>'0'),
 		);
@@ -670,7 +692,7 @@ class Dashboard extends CI_Controller{
 			array('kolom'=>'group_name','value'=>'asc')
 		);
 		$data['jenis'] = $jenis;
-		$data['group'] = $this->model_dop->global_model('m_surat_group',false,$where,false,false,$order,false,false,false);
+		$data['group'] = $this->Model_dop->global_model('m_surat_group',false,$where,false,false,$order,false,false,false);
 		$data['delete'] = 'dashboard/global_delete/m_surat/id';
 		// debug($data);
 		$this->load->view('element/v_header_style',$data);
@@ -683,7 +705,7 @@ class Dashboard extends CI_Controller{
 			array('kolom'=>'active_flag','value'=>'0'),
 		);
 		$where = $array;
-		if($jenis== 2){
+		if($jenis==2 || $jenis==3){
 			$today =array(
 				array('kolom'=>'event_date <=','value'=>date('Y-m-d')),
 				array('kolom'=>'event_date_end >=','value'=>date('Y-m-d'))
@@ -691,9 +713,9 @@ class Dashboard extends CI_Controller{
 			$where= array_merge($array,$today);
 		}
 		$order =array(
-			array('kolom'=>'event_name','value'=>'asc')
+			array('kolom'=>'event_date','value'=>'desc')
 		);
-		$data['data_grid'] = $this->model_dop->global_model('m_event',false,$where,false,false,$order,false,false,false);
+		$data['data_grid'] = $this->Model_dop->global_model('m_event',false,$where,false,false,$order,false,false,false);
 		
 		$data['jenis'] = $jenis;
 		$data['title'] = 'Data Kegiatan';
@@ -703,19 +725,20 @@ class Dashboard extends CI_Controller{
 		$this->load->view('master/m_event');
 		$this->load->view('element/v_footer_style');
 	}
-	function create_sess_event($id){
+	function create_sess_event($id,$jenis){
 		$where =array(
 			array('kolom'=>'id','value'=>$id),
 		);
-		$result = $this->model_dop->global_model_array('m_event',false,$where,false,false,false,false,false,false);
+		$result = $this->Model_dop->global_model_array('m_event',false,$where,false,false,false,false,false,false);
 		$sess_array = array();
 			$sess_array = array(
-			'id_event' => $result[0]['id'],
-			'event_name' => $result[0]['event_name']
+				'id_event' => $result[0]['id'],
+				'event_name' => $result[0]['event_name']
 			);
 		$this->session->set_userdata('event', $sess_array);
 		// debug($this->session->userdata('event'));
-		redirect('dashboard/input_data');
+		$direct = $jenis == 2 ? 'dashboard/input_data' : 'dashboard/scan';
+		redirect($direct);
 	}
 	function input_event($jenis){		
 		// $key = array_keys($array);
@@ -723,12 +746,12 @@ class Dashboard extends CI_Controller{
 		
 		$array = $this->input->post();
 		$log=array(
-					'create_date'=>date('Y-m-d'),
-					'create_by'=> $this->session->userdata('logged_in')['username']
-				);
+			'create_date'=>date('Y-m-d'),
+			'create_by'=> $this->session->userdata('logged_in')['username']
+		);
 		$data = array_merge($array,$log);
 		
-		$this->model_dop->insert_table('m_event',$data);
+		$this->Model_dop->insert_table('m_event',$data);
 		redirect('dashboard/event/'.$jenis);
 	}
 	
@@ -740,7 +763,7 @@ class Dashboard extends CI_Controller{
 				);
 		$update = array_merge($array,$log);
 		// debug($update);
-		$this->model_dop->update_table('m_event',$update,'id',$this->input->post('id'));
+		$this->Model_dop->update_table('m_event',$update,'id',$this->input->post('id'));
 		redirect('dashboard/event/'.$jenis);
 	}
 	
@@ -752,7 +775,7 @@ class Dashboard extends CI_Controller{
 			array('kolom'=>'group_name','value'=>'asc')
 		);
 		$data['title'] = 'Data Group Surat';
-		$data['data_grid'] = $this->model_dop->global_model('m_surat_group',false,$where,false,false,$order,false,false,false);
+		$data['data_grid'] = $this->Model_dop->global_model('m_surat_group',false,$where,false,false,$order,false,false,false);
 		$data['delete'] = 'dashboard/global_delete/m_surat_group/id';
 		// debug($data);
 		$this->load->view('element/v_header_style',$data);
@@ -770,7 +793,7 @@ class Dashboard extends CI_Controller{
 				);
 		$data = array_merge($array,$log);
 		// debug($data);
-		$this->model_dop->insert_table($table,$data);
+		$this->Model_dop->insert_table($table,$data);
 		redirect('dashboard/'.$table);
 	}
 	
@@ -782,7 +805,7 @@ class Dashboard extends CI_Controller{
 				);
 		$update = array_merge($array,$log);
 		// debug($update);
-		$this->model_dop->update_table($table,$update,'id',$this->input->post('id'));
+		$this->Model_dop->update_table($table,$update,'id',$this->input->post('id'));
 		redirect('dashboard/'.$table);
 	}
 	
@@ -815,7 +838,7 @@ class Dashboard extends CI_Controller{
 			'surat_file'=>$lampiran
 		);
 		// debug($data);
-		$this->model_dop->insert_table('m_surat',$data);
+		$this->Model_dop->insert_table('m_surat',$data);
 		redirect('dashboard/surat/'.$this->input->post('surat_jenis'));
 	}
 	//----------------------------------------------------------------
@@ -827,7 +850,7 @@ class Dashboard extends CI_Controller{
 		$user_name = $session_data['user_npp'];
 		$user_level = $session_data['user_level'];
 		$person_id = $session_data['user_person_id'];
-		$pass = $this->model_dop->get_table_where_array('t_users','username', $person_id);
+		$pass = $this->Model_dop->get_table_where_array('t_users','username', $person_id);
 		
 		$data=array(
             'old_pass'=>$pass[0]['USER_PASSWORD'],
@@ -859,7 +882,7 @@ class Dashboard extends CI_Controller{
 		$update=array(
             'user_password'=>md5($this->input->post('new_pass'))
         );
-        $this->model_dop->update_table('t_users',$update,'username',$person_id);
+        $this->Model_dop->update_table('t_users',$update,'username',$person_id);
 		redirect('dashboard/welcome_user');
 	}
 }

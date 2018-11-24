@@ -4,7 +4,7 @@
   });
 </script>
 <?php if($display){?>
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="8">
 <?php } ?>
 <div class="panel panel-warning">
 	<div class="panel-heading">
