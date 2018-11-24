@@ -1,10 +1,13 @@
 <?php
 class Dashboard extends CI_Controller{
     function __construct(){
-        parent::__construct();
-		$this->load->model('Model_wiki');
-        $this->load->model('model_rembes');
-		$this->load->library('form_validation');   
+		parent::__construct();
+		if($this->session->userdata('logged_in')){
+			$this->load->model('Model_wiki');
+			$this->load->library('form_validation');   
+		}else{
+			redirect("login");
+		}
     }
 	// function untuk mengubah flag aktif pada suatu record
 	function global_delete($table,$key,$value,$direct){
@@ -12,62 +15,7 @@ class Dashboard extends CI_Controller{
 		$direct_ = str_replace("_uri_","/",$direct);
         redirect($direct_);
 	}
-	// function untuk menampilkan halaman login
-	function index(){
-		$allert = $this->uri->segment(3);
-        $data=array(
-            'title'=>'Login',
-			'allert'=>$allert
-        );
-        $this->load->view('wiki/login',$data);
-    }
-	// function untuk mengecek data login
-	function cek_login(){
-	   $username = $this->input->post('username');
-	   $password = MD5($this->input->post('password'));
-	   $result = $this->Model_wiki->login($username,$password);
-		if($result){
-			$sess_array = array();
-			$sess_array = array(
-				'username' => $result[0]['username'],
-				'nama' => $result[0]['nama'],
-				'id' => $result[0]['id'],
-				'user_level' => $result[0]['user_level']
-			);
-			$this->session->set_userdata('logged_in', $sess_array);
-
-			$update=array(
-				'active_flag'=> '1',
-				'update_date'=>date('Y-m-d')
-			);
-
-			$this->Model_dop->update_table('m_user',$update,'id',$result[0]['id']);
-			redirect("dashboard/welcome_user");
-		}else{
-			redirect("dashboard/index/1");
-		}
-	}
-	// function untuk menghapus session user / log out
-	function logout(){
-		
-		$session_data = $this->session->userdata('logged_in');
-		
-		// debug($session_data);
-		$update=array(
-		'active_flag'=> '0',
-		'update_date'=>date('Y-m-d')
-		);
-		$this->Model_dop->update_table('m_user',$update,'id',$session_data['id']);
-		
-		$sess_array = array(
-			 'user_name' => '',
-			 'nama' => '',
-			 'user_level' => ''
-		);
-		$this->session->set_userdata('logged_in', $sess_array);
-		
-		redirect('dashboard');
-	}
+	
 	// function untuk menampilkan halaman welcome user(halaman setela login)
 	function welcome_user($allert=null,$note=null){
 		$session_data = $this->session->userdata('logged_in');
@@ -563,29 +511,33 @@ class Dashboard extends CI_Controller{
 	}
 	// function untuk memanggil halaman scan barcode by camera
 	function scan($id = null){
-		$data=array(
-			'id'=>null,
-			'comp'=>null,
-			'get_data'=>null
-		);
-		if($id){
-			$company = $this->Model_dop->get_table_where_array('m_company','qr_id',$id);
-			// debug($company);exit;
-			if($company){
-				$pegawai = $this->Model_wiki->dataAbsen($company[0]['id'],$this->session->userdata('event')['id_event']);
-				// debug($pegawai);exit;
-				$data=array(
-					'id'=>$id,
-					'comp'=>$company,
-					'get_data'=>$pegawai
-				);
-			}else{
-				echo "Tidak Terdaftar";
+		if($this->session->userdata('event')){
+			$data=array(
+				'id'=>null,
+				'comp'=>null,
+				'get_data'=>null
+			);
+			if($id){
+				$company = $this->Model_dop->get_table_where_array('m_company','qr_id',$id);
+				// debug($company);exit;
+				if($company){
+					$pegawai = $this->Model_wiki->dataAbsen($company[0]['id'],$this->session->userdata('event')['id_event']);
+					// debug($pegawai);exit;
+					$data=array(
+						'id'=>$id,
+						'comp'=>$company,
+						'get_data'=>$pegawai
+					);
+				}else{
+					redirect("dashboard/scan");
+				}
 			}
+		
+			$this->load->view('element/v_header_style',$data);		
+			$this->load->view('camera/camera');
+		}else{
+			redirect("dashboard/event/3");
 		}
-	
-        $this->load->view('element/v_header_style',$data);		
-		$this->load->view('camera/camera');
 	}
 	
 	// function untuk memanggil halaman scan barcode by camera

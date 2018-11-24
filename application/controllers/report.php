@@ -1,14 +1,18 @@
 <?php
 class Report extends CI_Controller{
     function __construct(){
-        parent::__construct();
-		$this->load->model('model_wiki');
-        $this->load->model('model_rembes');
+		parent::__construct();
+		if($this->session->userdata('logged_in')){
+			$this->load->model('Model_wiki');
+			$this->load->library('form_validation');   
+		}else{
+			redirect("login");
+		}
     }
 	// function untuk Export Data Company
 	function export_company(){
 		
-		$com = $this->model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
+		$com = $this->Model_dop->get_table_where_order('m_company','active_flag','0','company_name','asc');
 		// debug($data);
 		
 		$data['filename'] = 'Data Perusahaan Asosiasi HIMPUH('.date('d-m-Y').')';
@@ -37,8 +41,8 @@ class Report extends CI_Controller{
 					</tr>';
 		
 		foreach($com as $row){
-			$dir = $this->model_dop->get_table_where_array('m_pegawai','pegawai_jabatan','Direktur Utama');
-			$peg = $this->model_dop->get_table_where_array('m_pegawai','pegawai_jabatan','Perwakilan Tetap');
+			$dir = $this->Model_dop->get_table_where_array('m_pegawai','pegawai_jabatan','Direktur Utama');
+			$peg = $this->Model_dop->get_table_where_array('m_pegawai','pegawai_jabatan','Perwakilan Tetap');
 			
 			$where =array(
 				array('kolom'=>'pegawai_jabatan','value'=>'Direktur Utama'),
@@ -46,14 +50,14 @@ class Report extends CI_Controller{
 				array('kolom'=>'active_flag','value'=>'0')
 			);
 			
-			$dir = $this->model_dop->global_model_array('m_pegawai',false,$where,false,false,false,false,false,false);
+			$dir = $this->Model_dop->global_model_array('m_pegawai',false,$where,false,false,false,false,false,false);
 			
 			$where =array(
 				array('kolom'=>'pegawai_jabatan','value'=>'Perwakilan Tetap'),
 				array('kolom'=>'id_company','value'=>$row->id),
 				array('kolom'=>'active_flag','value'=>'0')
 			);
-			$peg = $this->model_dop->global_model_array('m_pegawai',false,$where,false,false,false,false,false,false);
+			$peg = $this->Model_dop->global_model_array('m_pegawai',false,$where,false,false,false,false,false,false);
 			
 			if($dir){
 				$dir_name = $dir[0]['pegawai_name'];
@@ -98,7 +102,7 @@ class Report extends CI_Controller{
 			'create_by'=> $this->session->userdata('logged_in')['username'],
 			'nama_file'=> $berkas
 		);
-		$this->model_dop->insert_table('t_berkas',$data);
+		$this->Model_dop->insert_table('t_berkas',$data);
 		redirect('dashboard/detail_company/'.$id);
 	}
 	
@@ -110,7 +114,7 @@ class Report extends CI_Controller{
 			$kolom=> $berkas
 		);
 		// debug($data);
-		$this->model_dop->update_table('m_company',$data,'id',$this->input->post('id'));
+		$this->Model_dop->update_table('m_company',$data,'id',$this->input->post('id'));
 		redirect('dashboard/detail_company/'.$this->input->post('id'));
 	}
 }

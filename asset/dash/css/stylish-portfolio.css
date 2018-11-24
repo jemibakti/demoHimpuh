@@ -34,7 +34,7 @@ body {
 .btn-dark {
     border-radius: 0;
     color: #fff;
-    background-color: #ff6700;
+    background-color: #f5b954;
 }
 
 .btn-dark:hover,
@@ -262,4 +262,10 @@ footer {
 .call-to-head {
     padding: 5px 0;
 
+}
+.dataTables_filter{
+    text-align : right;
+}
+.dataTables_length{
+    text-align : left;
 }

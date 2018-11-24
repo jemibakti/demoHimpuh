@@ -92,15 +92,8 @@
 						</th>
 					</tr>
 				<?php
-					}
-				}else{
+					}}
 				?>
-					<tr>
-						<th>tidak ditemukan</th><th>tidak ditemukan</th><th>tidak ditemukan</th><th>tidak ditemukan</th><th>tidak ditemukan</th><th>tidak ditemukan</th><th>tidak ditemukan</th>
-					</tr>
-				<?php
-				}
-			   ?>
 				</tbody>
 			</table>
 		</div>

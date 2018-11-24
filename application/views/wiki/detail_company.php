@@ -106,7 +106,7 @@
 			<?php } ?>
 		</div>
 		<div class='col-lg-10'>
-			<div class="alert alert-success alert-dismissible" role="alert">
+			<div class="alert alert-primary alert-dismissible" role="alert">
 			<h3>Detail Perusahaan</h3>
 			   <h4>
 			   <table class="table table-striped table-hover">
@@ -149,7 +149,7 @@
 						<tr>
 							<th colspan ='4'>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-								  <i class="fa fa-pencil"></i> Tambah Data
+								  <i class="fa fa-pencil"></i> Tambah Data Struktur Perusahaan
 								</button>
 							</th>
 							<th colspan='2'></th>
@@ -212,14 +212,11 @@
 		<hr/>		
 		<h3>Berkas Perusahaan </h3>
 			<div class="table-responsive">
-				<table class="table table-striped table-hover" id="dataTables-example">
+				<table class="table table-striped table-hover" id="dataTables-example1">
 					<thead>
 						<tr>
 							<th colspan ='4'>
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-								  <i class="fa fa-user"></i> Tambah Data Struktur Perusahaan
-								</button>
-								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalberkas">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalberkas">
 								  <i class="fa fa-file"></i> Tambah Berkas
 								</button>
 							</th>

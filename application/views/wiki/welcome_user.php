@@ -155,7 +155,7 @@
 						<div id="tabs-2">
 						<div class="panel panel-primary">
 							<div class="panel-body text-center">
-									<div class="service-item">
+									<div class="service-item table-responsive">
 									<table class="table table-striped" id="dataTables-example" style='color:red'>
 										<thead>
 											<tr class="warning">

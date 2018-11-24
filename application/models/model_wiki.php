@@ -21,7 +21,9 @@ class Model_wiki extends CI_Model{
     function dataAbsen($idCompany, $idAcara){
         return $this->db->query("
 		SELECT 
-			* 
+			a.*,
+			b.id as absenId,
+			b.absen_masuk 
 		FROM
 			m_pegawai a
 		LEFT JOIN t_absen b ON a.id = b.id_pegawai AND b.id_acara = ".$idAcara."

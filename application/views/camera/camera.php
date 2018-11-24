@@ -4,7 +4,7 @@
 <div class="panel panel-warning">
     <?php if($comp){?>
       <div class="panel-heading">
-        <h4><?php echo $comp['0']['company_name']; ?></h4>
+        
       </div>
       <div class="panel-body text-center">
         <form method="post" action = "<?php echo site_url('dashboard/input_data'); ?>" enctype="multipart/form-data" accept-charset="utf-8">								
@@ -45,14 +45,15 @@
       </div>
     </div>
 </div>
-
+<div class="col-lg-8">
+  <center><h2 class="btn-dark"><?php echo $comp['0']['company_name']; ?></h2></center>
+</div>
   <?php 
     if($get_data){
-      // debug($get_data);
+      // debug($get_data);exit;
     foreach($get_data as $row){
       // debug($row);
-      $flag_in = $row->flag_in;
-      if($flag_in == 0){
+      if(!$row->absen_masuk){
         $warna = 'danger';
         $icon = 'fa fa-upload';
       }else{
@@ -129,7 +130,12 @@
       </div>
     </div><br />
   </div>
-  <?php } } ?>
+  <?php 
+    } 
+  }else{
+    echo "<center><h2>Silahkan Arahkan Qr-Code Pada Kamera. </h2></center>";
+  } 
+  ?>
 </div>
   <script src="<?php echo base_url('asset/dash/js/build/qcode-decoder.min.js')?>"></script>
   <script type="text/javascript">
@@ -138,16 +144,12 @@
     'use strict';
 
     var qr = new QCodeDecoder();
+    var video = document.querySelector('video');
 
     if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
       alert('Your browser doesn\'t match the required specs.');
       throw new Error('Canvas and getUserMedia are required');
     }
-
-    var video = document.querySelector('video');
-    var reset = document.querySelector('#reset');
-    var stop = document.querySelector('#stop');
-
 
     function resultHandler (err, result) {
       if (err)
@@ -168,14 +170,6 @@
 
     // attach some event handlers to reset and
     // stop whenever we want.
-
-    reset.onclick = function () {
-      qr.decodeFromCamera(video, resultHandler);
-    };
-
-    stop.onclick = function () {
-      qr.stop();
-    };
 
   })();
   </script>

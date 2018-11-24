@@ -59,7 +59,7 @@
 						$order =array(
 							array('kolom'=>'a.pegawai_name','value'=>'asc')
 						);
-						$pimpinan = $this->model_dop->global_model_array('m_pegawai a',false,$where,false,false,$order,false,false,false);
+						$pimpinan = $this->Model_dop->global_model_array('m_pegawai a',false,$where,false,false,$order,false,false,false);
 				?>
 						<th><?php echo $no;$no++;?></th>
 						<th> <a href="<?php echo site_url('dashboard/detail_company/').'/'.$row->id; ?>"><?php echo $row->company_name; ?><a/></th>
