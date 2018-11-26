@@ -38,28 +38,30 @@ class Login extends CI_Controller{
 			 $this->Model_dop->update_table('m_user',$update,'id',$result[0]['id']);
 			 redirect("dashboard/welcome_user");
 		 }else{
-			 redirect("dashboard/index/1");
+			$this->session->set_flashdata('gagal', '<strong>Password</strong> atau <strong>Username</strong> salah');
+			 redirect("login");
 		 }
 	 }
 	 // function untuk menghapus session user / log out
 	 function logout(){
 		 
 		 $session_data = $this->session->userdata('logged_in');
-		 
-		 // debug($session_data);
 		 $update=array(
-		 'active_flag'=> '0',
-		 'update_date'=>date('Y-m-d')
+			'active_flag'=> '0',
+			'update_date'=>date('Y-m-d')
 		 );
 		 $this->Model_dop->update_table('m_user',$update,'id',$session_data['id']);
 		 
 		 $sess_array = array(
-			  'user_name' => '',
-			  'nama' => '',
-			  'user_level' => ''
+			'user_name' => '',
+			'nama' => '',
+			'user_level' => ''
 		 );
 		 $this->session->set_userdata('logged_in', $sess_array);
 		 
 		 redirect('dashboard');
+	 }
+	 function tesCamera(){
+		$this->load->view('camera/tesKamera');
 	 }
 }

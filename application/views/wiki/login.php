@@ -27,17 +27,26 @@
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('<?php echo base_url(); ?>asset/newLogin/images/img-01.jpg');">
+		
 			<div class="wrap-login100 p-t-190 p-b-30">
+				<?php if($this->session->flashdata('gagal')){ ?>
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<?php echo $this->session->flashdata('gagal'); ?>
+					</div>
+				<?php }?>
 				<form class="login100-form validate-form" method="post" action="<?php echo site_url('login/cek_login')?>">
 					<div class="login100-form-avatar">
 						<img src="<?php echo base_url(); ?>asset/newLogin/images/avatar-01.jpg" alt="AVATAR">
 					</div>
-
+					
 					<span class="login100-form-title p-t-20 p-b-45">
 						Himpuh
 					</span>
 
-					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username Tidak Boleh Kosong">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
@@ -45,7 +54,7 @@
 						</span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password Tidak Boleh Kosong">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">

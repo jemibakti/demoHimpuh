@@ -323,7 +323,7 @@ class Dashboard extends CI_Controller{
 			'create_by'=> $this->session->userdata('logged_in')['username'],
 			'qr_id'=>$qr_id
 		);
-		$this->Model_dop->insert_table('M_COMPANY',$data);
+		$this->Model_dop->insert_table('m_company',$data);
 		
 		redirect("dashboard/data_perusahaan/4");
 	}
@@ -365,7 +365,7 @@ class Dashboard extends CI_Controller{
 			'company_anggaran'=>trim($this->input->post('company_anggaran')),
 			'company_contact'=>$this->input->post('company_contact')
 		);
-		$this->Model_dop->update_table('M_COMPANY',$data,'id',$this->input->post('id_com'));
+		$this->Model_dop->update_table('m_company',$data,'id',$this->input->post('id_com'));
 		// debug($data);
 		redirect("dashboard/data_perusahaan/".$this->input->post('jenis').'/4');
 	}
@@ -510,7 +510,8 @@ class Dashboard extends CI_Controller{
 		}
 	}
 	// function untuk memanggil halaman scan barcode by camera
-	function scan($id = null){
+	function scan($idScan = null){
+		$id = $idScan ? $idScan : $this->input->post("qr_id");
 		if($this->session->userdata('event')){
 			$data=array(
 				'id'=>null,

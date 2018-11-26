@@ -16,7 +16,7 @@
 									<div class="input-group">
 									  <span class="input-group-addon" id="sizing-addon1">Nama Pegawai</span>
 									  <input type="text" class="form-control" name="nama_1" required  autofocus>
-									</div></br>
+									</div><br/>
 									  <span class="input-group-btn">
 										<button class="btn btn-primary" type="submit">Submit!</button>
 									  </span>

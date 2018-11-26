@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <div class="col-lg-4">
 <video autoplay class="col-lg-12 col-xs-12"></video>
+<form method="post" action = "<?php echo site_url('dashboard/scan'); ?>" enctype="multipart/form-data" accept-charset="utf-8">								
+  <input type="text" name="qr_id" required  autofocus><button type="submit" class="btn btn-primary"><i class="fa fa-sign-out"></i> </button>
+</form>
 <div class="panel panel-warning">
     <?php if($comp){?>
       <div class="panel-heading">
         
       </div>
       <div class="panel-body text-center">
-        <form method="post" action = "<?php echo site_url('dashboard/input_data'); ?>" enctype="multipart/form-data" accept-charset="utf-8">								
-          <input type="text" name="qr_id" required  autofocus><button type="submit" class="btn btn-primary"><i class="fa fa-sign-out"></i> </button>
-        </form>
       <?php 
         
         $filename = "upload/company/".$comp['0']['company_pic'];
