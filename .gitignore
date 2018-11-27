@@ -25,3 +25,7 @@ application/hooks/*
 application/language/*
 
 system/*
+
+*.md
+*.error_log
+*.rst
