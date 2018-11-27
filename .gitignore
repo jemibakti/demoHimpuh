@@ -18,9 +18,9 @@ application/logs/*
 
 upload/*
 application/config/*
-application/chace/*
+application/cache/*
 application/core/*
-application/error/*
+application/errors/*
 application/hooks/*
 application/language/*
 
