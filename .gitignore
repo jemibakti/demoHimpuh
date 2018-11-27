@@ -20,3 +20,8 @@ upload/*
 aplication/config/*
 aplication/chace/*
 aplication/core/*
+aplication/error/*
+aplication/hooks/*
+aplication/language/*
+
+system/*
