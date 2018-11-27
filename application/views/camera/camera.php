@@ -154,23 +154,11 @@
     function resultHandler (err, result) {
       if (err)
         return console.log(err.message);
-      // alert('hasil scan dari qr code adalah :'+result);
-	  window.location = "<?php echo site_url('dashboard/scan/'); ?>"+'/'+result;
+	    window.location = "<?php echo site_url('dashboard/scan/'); ?>"+'/'+result;
 	  
     }
 
-    // prepare a canvas element that will receive
-    // the image to decode, sets the callback for
-    // the result and then prepares the
-    // videoElement to send its source to the
-    // decoder.
-
     qr.decodeFromCamera(video, resultHandler);
-
-
-    // attach some event handlers to reset and
-    // stop whenever we want.
-
   })();
   </script>
 	<?php $this->load->view('js/absen')?>
