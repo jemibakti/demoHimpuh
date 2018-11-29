@@ -4,6 +4,7 @@
   });
 </script>
 <div class="panel panel-warning">
+	
 	<div class="panel-heading">
 		<h3><i class="fa fa-list"></i> Data Perusahaan <?php echo $perusahaan[0]['company_name']; ?></h3>
 	</div>
@@ -14,7 +15,7 @@
 		  <li><a href="#">Data Master</a></li>
 		  <li><a href="#">Perusahaan</a></li>
 		  <li class="active">Detail Perusahaan</li>
-		</ol>							
+		</ol>	
 		<div class="col-lg-2">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -233,12 +234,12 @@
 					$no = 1;
 					
 					if($berkas){
-						foreach($berkas as $row){
+						foreach($berkas as $row){						$urlFile = $row->nama_file != null ? base_url().'upload/berkas/'.$row->nama_file : '#d';						$statusUpload = $row->nama_file ? "success" : "danger" ;						$targetBlank = $row->nama_file ? 'target="_BLANK"' : '' ;
 					?>
 							<th><?php echo $no;$no++;?></th>
 							<th> <?php echo $row->keterangan; ?></th>
 							<th> 
-								<a href="<?php echo base_url().'upload/berkas/'.$row->nama_file; ?>" type="button" class="btn btn-success btn-xs" target="_BLANK">
+								<a href="<?php echo $urlFile ?>" type="button" class="btn btn-<?php echo $statusUpload; ?> btn-xs" <?php echo $targetBlank; ?> >
 									<i class="fa fa-file"></i>
 								</a> 
 							</th>
