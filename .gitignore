@@ -23,7 +23,7 @@ application/core/*
 application/errors/*
 application/hooks/*
 application/language/*
-
+tests.*
 system/*
 
 *.md
