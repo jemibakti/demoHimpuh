@@ -393,7 +393,7 @@
 		</div>
 	  </div>
 	</div>
-</div>
+</div> 
 <!-- modal update data end -->
 
 <!-- modal update file-->
