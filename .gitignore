@@ -16,12 +16,5 @@ application/logs/*
 !application/logs/.htaccess
 /vendor/
 
-upload/*
-application/config/*
-application/cache/*
-application/core/*
-application/errors/*
-application/hooks/*
-application/language/*
 
 system/*
