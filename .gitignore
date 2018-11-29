@@ -17,6 +17,11 @@ application/logs/*
 /vendor/
 
 upload/*
-aplication/config/*
-aplication/chace/*
-aplication/core/*
+application/config/*
+application/cache/*
+application/core/*
+application/errors/*
+application/hooks/*
+application/language/*
+
+system/*

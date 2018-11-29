@@ -95,14 +95,19 @@ class Report extends CI_Controller{
 	function tambah_berkas($id){
 		
 		$berkas = upload("file_1",'./upload/berkas',false);
-		
-		$data=array(
-			'keterangan'=> $this->input->post('keterangan'),
-			'id_company'=> $id,
-			'create_by'=> $this->session->userdata('logged_in')['username'],
-			'nama_file'=> $berkas
-		);
-		$this->Model_dop->insert_table('t_berkas',$data);
+		if($berkas){
+			$data=array(
+				'keterangan'=> $this->input->post('keterangan'),
+				'id_company'=> $id,
+				'create_by'=> $this->session->userdata('logged_in')['username'],
+				'nama_file'=> $berkas
+			);
+			$this->Model_dop->insert_table('t_berkas',$data);
+			$info = '<strong>data</strong> Berhasil disimpan';
+		}else{
+			$info = '<strong>File</strong> gagal Di upload';
+		}
+		$this->session->set_flashdata('info', $info);
 		redirect('dashboard/detail_company/'.$id);
 	}
 	
