@@ -3,7 +3,7 @@
 !*/logs/index.html
 */cache/*
 !*/cache/index.html
-!*/cache/.htaccess
+!*/cache/.htaccess  
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
